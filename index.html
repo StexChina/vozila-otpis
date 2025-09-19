@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vozila za otpis — evidencija (v1.2 · RSD)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+<header class="topbar">
+  <h1>Vozila za otpis <small style="font-weight:normal;color:#777">v1.2 · RSD</small></h1>
+  <div class="actions">
+    <button id="btnExportJSON" title="Izvezi JSON fajl svih vozila">Izvezi JSON</button>
+    <label class="file-label">
+      <input type="file" id="importJSON" accept="application/json" />
+      Uvezi JSON
+    </label>
+    <label class="file-label">
+      <input type="file" id="importCSV" accept=".csv,text/csv" />
+      Uvezi CSV
+    </label>
+    <button id="btnClearAll" class="danger" title="Obriši sve iz memorije">Obriši sve</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="form-wrap">
+    <h2>Unos / izmena vozila</h2>
+    <form id="vehicleForm">
+      <input type="hidden" id="vehId" />
+      <div class="grid two">
+        <label>Marka i model
+          <input id="markaModel" placeholder="npr. Škoda Fabia 1.4" />
+        </label>
+        <label>Godište
+          <input id="godiste" type="number" min="1950" max="2099" placeholder="npr. 2012" />
+        </label>
+        <label>Registracija
+          <input id="registracija" placeholder="npr. BG-123-AB" />
+        </label>
+        <label>Broj šasije
+          <input id="brojSasije" placeholder="npr. TMBJK46Y..." />
+        </label>
+        <label>Broj motora
+          <input id="brojMotora" placeholder="(opciono)" />
+        </label>
+        <label>Kilometraža
+          <input id="kilometraza" type="number" min="0" placeholder="npr. 185000" />
+        </label>
+      </div>
+
+      <div class="grid two">
+        <label>Tehničko stanje
+          <textarea id="tehnicko" rows="2" placeholder="motor, menjač, kočnice… (ukratko)"></textarea>
+        </label>
+        <label>Karoserija
+          <textarea id="karoserija" rows="2" placeholder="oštećenja, korozija…"></textarea>
+        </label>
+        <label>Enterijer
+          <textarea id="enterijer" rows="2" placeholder="sedišta, elektronika…"></textarea>
+        </label>
+        <label>Napomena
+          <textarea id="napomena" rows="2" placeholder="npr. nije u voznom stanju; neisplativo za popravku"></textarea>
+        </label>
+      </div>
+
+      <div class="grid two">
+        <label>Procenjena vrednost (RSD)
+          <input id="procena" type="number" min="0" step="1000" placeholder="npr. 120000" />
+        </label>
+        <label>Stanje vožnje
+          <select id="stanjeVoznje">
+            <option value="">— izaberi —</option>
+            <option>U voznom stanju</option>
+            <option>Nije u voznom stanju</option>
+            <option>Ograničeno vožljivo</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid one">
+        <label>Fotografije (jedna ili više)
+          <input id="photos" type="file" accept="image/*" multiple />
+        </label>
+        <div id="photoPreview" class="preview"></div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="btnSave">Sačuvaj vozilo</button>
+        <button type="button" id="btnReset" class="secondary">Očisti formu</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="list-wrap">
+    <h2>Spisak vozila</h2>
+    <div class="toolbar">
+      <input id="q" placeholder="Pretraga (marka, reg, šasija…)" />
+      <select id="filterStanje">
+        <option value="">Sva stanja</option>
+        <option>U voznom stanju</option>
+        <option>Nije u voznom stanju</option>
+        <option>Ograničeno vožljivo</option>
+      </select>
+    </div>
+    <div id="vehicleList" class="cards"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <small>Offline prototip · Lokalna memorija pregledača (localStorage)</small>
+</footer>
+
+<template id="printTemplate">
+  <article class="print-page">
+    <header>
+      <h1>Opis vozila za otpis</h1>
+      <p class="muted">Generisano iz aplikacije „Vozila za otpis“</p>
+    </header>
+    <section>
+      <h2>Osnovni podaci</h2>
+      <table class="kv"></table>
+    </section>
+    <section>
+      <h2>Stanje</h2>
+      <div class="cols">
+        <div><h3>Tehničko</h3><p class="t tehnicko"></p></div>
+        <div><h3>Karoserija</h3><p class="t karoserija"></p></div>
+        <div><h3>Enterijer</h3><p class="t enterijer"></p></div>
+      </div>
+      <p><strong>Napomena:</strong> <span class="t napomena"></span></p>
+    </section>
+    <section>
+      <h2>Fotografije</h2>
+      <div class="gallery"></div>
+    </section>
+    <section>
+      <h2>Procena</h2>
+      <p><strong>Procenjena vrednost:</strong> <span class="t procena"></span></p>
+    </section>
+  </article>
+</template>
+
+<script src="script.js"></script>
+</body>
+</html>
