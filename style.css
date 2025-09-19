@@ -39,6 +39,10 @@ input,textarea,select{padding:10px;border-radius:8px;border:1px solid #ddd;font-
 .print-page .muted{color:#777}
 .print-page .kv{width:100%;border-collapse:collapse}
 .print-page .kv td{border:1px solid #ddd;padding:6px 8px;vertical-align:top}
+.print-page .kv th{border:1px solid #ddd;padding:6px 8px;background:#f6f6f6;text-align:left}
 .print-page .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .print-page .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:8px}
 .print-page .gallery img{width:100%;height:auto;border:1px solid #ddd;border-radius:6px}
+.summary-table{width:100%;border-collapse:collapse;margin-top:8px}
+.summary-table th,.summary-table td{border:1px solid #ddd;padding:6px 8px;text-align:left}
+.summary-table th{background:#f6f6f6}

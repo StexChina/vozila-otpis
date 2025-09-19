@@ -1,33 +1,27 @@
-# Vozila za otpis — v1.2 (RSD, izmena unosa, potvrda brisanja)
+# Vozila za otpis — v1.4 (RSD, XLSX/CSV uvoz, XLSX izvoz, Globalni PDF)
 
-Statična offline aplikacija. Podaci u **localStorage**. Valuta je **RSD**.
+## Novo
+- **"Stanje vožnje" → "Stanje vozila"** (UI + podaci); kompatibilnost sa starim zapisima očuvana.
+- **Globalni PDF**: jedno dugme koje pravi izveštaj za SVA vozila. Prva strana je **sumarna tabela** (RB, Marka i model, Registracija, Broj šasije, Procenjena vrednost, Stanje vozila), zatim detalji za svako vozilo.
+- **Izvoz XLSX** svih vozila (SheetJS, radi kada je app online).
+- RSD valuta svuda.
 
-## Šta je novo u v1.2
-- Valuta promenjena u **RSD** (format `sr-RS`, bez decimala).
-- **Uredi → Sačuvaj** sada **ažurira postojeće vozilo** (nema duplikata).
-- **Potvrda za brisanje** (confirm dijalog).
+## Kolone za uvoz (CSV/XLSX)
+Preferirajte **`stanjeVozila`** (ali podržano je i staro `stanjeVoznje`):  
+```
+markaModel, godiste, registracija, brojSasije, brojMotora, kilometraza, tehnicko, karoserija, enterijer, napomena, procena, stanjeVozila
+```
 
-## CSV/JSON
-- CSV uvoz je isti kao u v1.1 (procena je sada u RSD).
-- JSON izvoz/uvoz za bekap.
-
-## Kako radi izmena unosa
-1. Kliknite **Uredi** na kartici vozila.
-2. Polja se popunjavaju u formi.
-3. Izmenite šta želite i kliknite **Sačuvaj vozilo** → unos se ažurira.
-
-## GitHub — brzo uputstvo
-1. Napravite repo na GitHub-u (npr. `vozila-otpis`).
-2. U terminalu uđite u folder i:
+## GitHub ažuriranje
+1. Raspakujte ZIP preko postojećeg foldera.
+2. U Git Bash (u root projekta):
    ```bash
-   git init
    git add .
-   git commit -m "v1.2 RSD"
-   git branch -M main
-   git remote add origin https://github.com/<username>/vozila-otpis.git
-   git push -u origin main
+   git commit -m "Update: v1.4 (global PDF + XLSX export, stanje vozila)"
+   git push
    ```
-3. U **Settings → Pages** uključite **Deploy from branch**, `main` / root.
-4. Otvorite link koji GitHub prikaže.
+3. GitHub Pages se osvežava automatski (osvežite stranicu posle ~1 min).
 
-> Napomena: Zadržan je isti localStorage ključ (`vozila_otpis_v1`), pa će postojeći podaci ostati vidljivi i u v1.2.
+## Napomene
+- XLSX import/export koristi CDN (potreban internet); CSV radi i offline.
+- Podaci ostaju jer se koristi isti localStorage ključ: `vozila_otpis_v1`.
